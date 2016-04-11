@@ -1,0 +1,108 @@
+from Tkinter import *
+import time
+import serial
+
+#Setup:
+root = Tk()
+root.title("Télécomande Robot")
+root.geometry("240x280")
+#root.iconbitmap('robot.ico')
+root.resizable(0, 0)
+
+prompt = '      Appuyez pour commencer      '
+label1 = Label(root, text=prompt, width=len(prompt), bg='Cyan')
+label1.pack()
+
+champ_label0 = Label(root, text="")
+champ_label0.pack()
+
+champ_label = Label(text="Commandes:")
+champ_label.pack()
+
+champ_label1 = Label(text="Author: Dorian")
+
+#Commandes:
+champ_label2 = Label(text="Z = Avancer")
+champ_label3 = Label(text="S = Reculer")
+champ_label4 = Label(text="Q = Gauche")
+champ_label5 = Label(text="D = Droite")
+champ_label6 = Label(text="Space = Stop")
+#
+champ_label7 = Label(text="8 = Feux avant")
+champ_label8 = Label(text="2 = Feux arrière")
+champ_label9 = Label(text="4 = Feux gauche")
+champ_label10 = Label(text="6 = Feux droite")
+#
+champ_label2.pack()
+champ_label3.pack()
+champ_label4.pack()
+champ_label5.pack()
+champ_label6.pack()
+champ_label7.pack()
+champ_label8.pack()
+champ_label9.pack()
+champ_label10.pack()
+champ_label1.pack()
+
+#Détéction des touches:
+
+ser = serial.Serial('/dev/ttyACM0', 115200)
+print("Connexion à l'arduino ...")
+
+
+def key(event):
+    if event.char == "z":
+        msg = 'Avancer'
+        ser.write('a')
+    
+        
+        
+    if event.char == "s":
+        msg = 'Reculer'
+        ser.write('r')
+    
+        
+    if event.char == "q":
+        msg = 'Gauche'
+        ser.write('g')
+    
+        
+    if event.char == "d":
+        msg = 'Droite'
+        ser.write('d')
+    
+        
+    if event.char == " ":
+        msg = 'Stop'
+        ser.write('s')
+   
+        
+    if event.char == "8":
+        msg = 'Feux avant'
+        ser.write('8')
+        
+    if event.char == "2":
+        msg = 'Feux arrière'
+        ser.write('2')
+        
+    if event.char == "4":
+        msg = 'Feux gauche'
+        ser.write('4')
+        
+    if event.char == "6":
+        msg = 'Feux droite'
+        ser.write('6')
+    if event.char == "1":
+        msg = 'Cam droite'
+        ser.write('1')
+    if event.char == "3":
+        msg = 'Cam gauche'
+        ser.write('3')
+    if event.char == "0":
+        msg = 'Cam 0'
+        ser.write('0')
+        
+   
+    label1.config(text=msg) 
+root.bind_all('<Key>', key)
+root.mainloop()
