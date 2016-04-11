@@ -11,7 +11,7 @@ AF_DCMotor motorARD(4); //D
 
 int incomingByte = 0;  
 
-int ledAD = 4;      // éclaireage
+int ledAD = 4;      // éclairage
 int ledAG = 3;
 int ledARD = 2;
 int ledARG = 1;
